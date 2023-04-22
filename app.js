@@ -33,55 +33,62 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 const fetchStockData = async (ticker) => {
-  try {
-    const stockData = await yahooFinance.quote({
-      symbol: ticker,
-      modules: ['price', 'summaryProfile', 'financialData', 'earnings'],
-    });
-
-    console.log(`${ticker} stock data:`);
-    console.log(stockData);
-
-    // 使用 stockData 進行其他操作（例如，獲取特定字段或進一步處理）
-  } catch (error) {
-    console.error(`Error fetching data for ${ticker}:`, error);
-  }
-};
-
-const fetchStockHistoryData = async(ticker)=>{
     try {
-        // 設置日期範圍為過去一個月
-        const today = new Date();
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(today.getMonth() - 1);
-    
-        // 將日期轉換為 yyyy-mm-dd 格式
-        const formatDate = (date) => {
-          const year = date.getFullYear();
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-    
-          return `${year}-${month}-${day}`;
-        };
-    
-        const fromDate = formatDate(oneMonthAgo);
-        const toDate = formatDate(today);
-    
-        // 使用 yfinance 獲取股票的歷史市場數據
-        const historicalData = await yahooFinance.historical({
-          symbol: ticker,
-          from: fromDate,
-          to: toDate,
-        });
-    
-        console.log(`${ticker} historical data:`);
-        console.log(historicalData);
-    
-        return historicalData;
-      } catch (error) {
-        console.error(`Error fetching data for ${ticker}:`, error);
-      }
-}
+      const stockData = await yahooFinance.quote({
+        symbol: ticker,
+        modules: ['price', 'summaryProfile', 'financialData', 'earnings'],
+      });
+  
+      // 將資料整理成字串
+      const stockDataString = JSON.stringify(stockData, null, 2);
+  
+      console.log(`${ticker} stock data:`);
+      console.log(stockDataString);
+  
+      return stockDataString;
+    } catch (error) {
+      console.error(`Error fetching data for ${ticker}:`, error);
+    }
+  };
+  
+  const fetchStockHistoryData = async (ticker) => {
+    try {
+      // 設置日期範圍為過去一個月
+      const today = new Date();
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(today.getMonth() - 1);
+  
+      // 將日期轉換為 yyyy-mm-dd 格式
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+  
+        return `${year}-${month}-${day}`;
+      };
+  
+      const fromDate = formatDate(oneMonthAgo);
+      const toDate = formatDate(today);
+  
+      // 使用 yfinance 獲取股票的歷史市場數據
+      const historicalData = await yahooFinance.historical({
+        symbol: ticker,
+        from: fromDate,
+        to: toDate,
+      });
+  
+      // 將資料整理成字串
+      const historicalDataString = JSON.stringify(historicalData, null, 2);
+  
+      console.log(`${ticker} historical data:`);
+      console.log(historicalDataString);
+  
+      return historicalDataString;
+    } catch (error) {
+      console.error(`Error fetching data for ${ticker}:`, error);
+    }
+  };
+  
 
 
 // 定义事件处理函数
@@ -160,5 +167,7 @@ app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
       
-// console.log(fetchStockData('2330.TW'))
-// console.log(fetchStockHistoryData('2330.TW'))
+// const target = fetchStockData('2330.TW')
+// console.log();
+// const target2 = fetchStockHistoryData('2330.TW')
+// console.log(target2)
