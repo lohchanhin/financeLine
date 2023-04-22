@@ -19,8 +19,7 @@ const client = new line.Client(config);
 // 创建 Express 应用
 const app = express();
 
-// 存储用户会话的对象
-const userConversations = {};
+
 
 // 设置回调路由
 app.post('/callback', line.middleware(config), (req, res) => {
