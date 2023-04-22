@@ -80,29 +80,27 @@ async function handleEvent(event) {
       from: fromDate,
       to: toDate,
     });
+ 
 
-    console.log(`historical data:`);
-    console.log(target);
+    client.replyMessage(event.replyToken, target);
 
     const configuration = new Configuration({ apiKey: apiKey2 });
     const openai = new OpenAIApi(configuration);
-        // ...（前面的部分代碼省略）
-
-        const response = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
-            messages: [
-              {
-                role: "system",
-                content: "You are a helpful assistant."
-              },
-              {
-                role: "user",
-                content: "Analyze the past month's K-line data for the following stock: " + JSON.stringify(target)
-              }
-            ],
-            max_tokens: 2000,
-            temperature: 0.2
-          });
+    const response = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: [
+            {
+            role: "system",
+            content: "You are a helpful assistant."
+            },
+            {
+            role: "user",
+            content: "Analyze the past month's K-line data for the following stock: " + JSON.stringify(target)
+            }
+        ],
+        max_tokens: 2000,
+        temperature: 0.2
+        });
       
           // 获取助手回复的文本
           const assistantReply = response.data.choices[0].message.content;
