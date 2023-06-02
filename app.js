@@ -114,10 +114,10 @@ async function handleEvent(event) {
             },
             {
             role: "user",
-            content: "根據過去一個月K線資料以技術指標分析是否適合購買: " + JSON.stringify(target)
+            content: "這是過去一個月K線資料以技術指標分析是否適合購買: " + target
             }
         ],
-        max_tokens: 2000,
+        //max_tokens: 2000,
         temperature: 0.2
         });
       
@@ -129,7 +129,7 @@ async function handleEvent(event) {
           // 使用 LINE API 发送图片消息
           return client.replyMessage(event.replyToken, reply);
       
-        } else if (event.message.text.slice(0, 4) === "分析財報") {
+  } else if (event.message.text.slice(0, 4) === "分析財報") {
           const stockCode = event.message.text.slice(4).replace(/\s+/g, '');
           const target = await fetchStockData(stockCode);
       
@@ -147,7 +147,7 @@ async function handleEvent(event) {
                 content: "根據財報為該公司進行評分,滿分10分: " + target
               }
             ],
-            max_tokens: 2000,
+            //max_tokens: 2000,
             temperature: 0.2
           });
       
@@ -158,7 +158,7 @@ async function handleEvent(event) {
       
           // 使用 LINE API 发送消息
           return client.replyMessage(event.replyToken, reply);
-        }
+  }
 }
       
 // 监听端口
