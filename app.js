@@ -39,27 +39,27 @@ const fetchStockData = async (ticker) => {
         modules: ['price', 'summaryProfile', 'financialData', 'earnings'],
       });
       
-    
-      const result = {
-        companyName: data.summaryProfile.longName,
-        currentQuarterEstimate: data.earnings.earningsChart.currentQuarterEstimate,
-        earningsQ1_2023: data.earnings.earningsChart.quarterly.find(item => item.date === '1Q2023').actual,
-        earningsQ4_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '4Q2022').actual,
-        earningsQ3_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '3Q2022').actual,
-        earningsQ2_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '2Q2022').actual,
-        currentPrice: data.financialData.currentPrice,
-        targetHighPrice: data.financialData.targetHighPrice,
-        targetLowPrice: data.financialData.targetLowPrice,
-        targetMeanPrice: data.financialData.targetMeanPrice,
-        recommendationMean: data.financialData.recommendationMean,
-        revenuePerShare: data.financialData.revenuePerShare,
-        returnOnAssets: data.financialData.returnOnAssets,
-        returnOnEquity: data.financialData.returnOnEquity,
-        grossProfits: data.financialData.grossProfits,
-        grossMargins: data.financialData.grossMargins,
-        ebitdaMargins: data.financialData.ebitdaMargins,
-        operatingMargins: data.financialData.operatingMargins,
-      };
+    console.log(data)
+    const result = {
+      companyName: data.summaryProfile?.longName,
+      currentQuarterEstimate: data.earnings?.earningsChart?.currentQuarterEstimate,
+      earningsQ1_2023: data.earnings?.earningsChart?.quarterly?.find(item => item.date === '1Q2023')?.actual,
+      earningsQ4_2022: data.earnings?.earningsChart?.quarterly?.find(item => item.date === '4Q2022')?.actual,
+      earningsQ3_2022: data.earnings?.earningsChart?.quarterly?.find(item => item.date === '3Q2022')?.actual,
+      earningsQ2_2022: data.earnings?.earningsChart?.quarterly?.find(item => item.date === '2Q2022')?.actual,
+      currentPrice: data.financialData?.currentPrice,
+      targetHighPrice: data.financialData?.targetHighPrice,
+      targetLowPrice: data.financialData?.targetLowPrice,
+      targetMeanPrice: data.financialData?.targetMeanPrice,
+      recommendationMean: data.financialData?.recommendationMean,
+      revenuePerShare: data.financialData?.revenuePerShare,
+      returnOnAssets: data.financialData?.returnOnAssets,
+      returnOnEquity: data.financialData?.returnOnEquity,
+      grossProfits: data.financialData?.grossProfits,
+      grossMargins: data.financialData?.grossMargins,
+      ebitdaMargins: data.financialData?.ebitdaMargins,
+      operatingMargins: data.financialData?.operatingMargins,
+    };
 
       // 將資料整理成字串
       const stockDataString = JSON.stringify(result, null, 2);
@@ -199,6 +199,6 @@ app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
 
-// fetchStockData('2330.TW')
+//fetchStockData('2899.HK')
 // fetchStockHistoryData('2330.TW')
 
