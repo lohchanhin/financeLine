@@ -34,13 +34,35 @@ app.post('/callback', line.middleware(config), (req, res) => {
 
 const fetchStockData = async (ticker) => {
     try {
-      const stockData = await yahooFinance.quote({
+      const data = await yahooFinance.quote({
         symbol: ticker,
         modules: ['price', 'summaryProfile', 'financialData', 'earnings'],
       });
-  
+      
+    
+      const result = {
+        companyName: data.summaryProfile.longName,
+        currentQuarterEstimate: data.earnings.earningsChart.currentQuarterEstimate,
+        earningsQ1_2023: data.earnings.earningsChart.quarterly.find(item => item.date === '1Q2023').actual,
+        earningsQ4_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '4Q2022').actual,
+        earningsQ3_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '3Q2022').actual,
+        earningsQ2_2022: data.earnings.earningsChart.quarterly.find(item => item.date === '2Q2022').actual,
+        currentPrice: data.financialData.currentPrice,
+        targetHighPrice: data.financialData.targetHighPrice,
+        targetLowPrice: data.financialData.targetLowPrice,
+        targetMeanPrice: data.financialData.targetMeanPrice,
+        recommendationMean: data.financialData.recommendationMean,
+        revenuePerShare: data.financialData.revenuePerShare,
+        returnOnAssets: data.financialData.returnOnAssets,
+        returnOnEquity: data.financialData.returnOnEquity,
+        grossProfits: data.financialData.grossProfits,
+        grossMargins: data.financialData.grossMargins,
+        ebitdaMargins: data.financialData.ebitdaMargins,
+        operatingMargins: data.financialData.operatingMargins,
+      };
+
       // 將資料整理成字串
-      const stockDataString = JSON.stringify(stockData, null, 2);
+      const stockDataString = JSON.stringify(result, null, 2);
   
       console.log(`${ticker} stock data:`);
       console.log(stockDataString);
@@ -76,9 +98,19 @@ const fetchStockData = async (ticker) => {
         from: fromDate,
         to: toDate,
       });
-  
+      
+          // 篩選出只有 open, high, low, close 的數據
+      const simplifiedData = historicalData.map((data) => ({
+        open: data.open,
+        high: data.high,
+        low: data.low,
+        close: data.close,
+      }));
+
+      //console.log(simplifiedData);
+
       // 將資料整理成字串
-      const historicalDataString = JSON.stringify(historicalData, null, 2);
+      const historicalDataString = JSON.stringify(simplifiedData, null, 2);
   
       console.log(`${ticker} historical data:`);
       console.log(historicalDataString);
@@ -166,8 +198,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
-      
-// const target = fetchStockData('2330.TW')
-// console.log();
-// const target2 = fetchStockHistoryData('2330.TW')
-// console.log(target2)
+
+fetchStockData('2330.TW')
+fetchStockHistoryData('2330.TW')
+
