@@ -146,7 +146,7 @@ async function handleEvent(event) {
             },
             {
             role: "user",
-            content: "這是過去一個月K線資料以技術指標分析是否適合購買,不需要解釋技術: " + target
+            content: "這是過去一個月K線資料以技術指標分析是否適合購買,如果適合給買入點,不需要解釋技術: " + target
             }
         ],
         //max_tokens: 2000,
