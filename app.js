@@ -133,7 +133,7 @@ async function handleEvent(event) {
   // 检查前四个字符是否是 "分析k線"
   if (event.message.text.slice(0, 4) === "分析k線") {
     const stockCode = event.message.text.slice(4).replace(/\s+/g, '');
-    const target = fetchStockHistoryData(stockCode)
+    const target = await fetchStockHistoryData(stockCode)
 
     const configuration = new Configuration({ apiKey: apiKey2 });
     const openai = new OpenAIApi(configuration);
