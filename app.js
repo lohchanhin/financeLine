@@ -138,11 +138,11 @@ async function handleEvent(event) {
     const configuration = new Configuration({ apiKey: apiKey2 });
     const openai = new OpenAIApi(configuration);
     const response = await openai.createChatCompletion({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4',
         messages: [
             {
             role: "system",
-            content: "You are a helpful assistant."
+            content: "K線分析師."
             },
             {
             role: "user",
@@ -168,11 +168,11 @@ async function handleEvent(event) {
           const configuration = new Configuration({ apiKey: apiKey2 });
           const openai = new OpenAIApi(configuration);
           const response = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4',
             messages: [
               {
                 role: "system",
-                content: "You are a helpful assistant."
+                content: "財報分析師."
               },
               {
                 role: "user",
