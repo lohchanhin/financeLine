@@ -176,7 +176,7 @@ async function handleEvent(event) {
               },
               {
                 role: "user",
-                content: "根據財報為該公司進行評分,滿分10分: " + target
+                content: "根據財報為該公司寫一段總結並且進行評分,滿分10分: " + target
               }
             ],
             //max_tokens: 2000,
