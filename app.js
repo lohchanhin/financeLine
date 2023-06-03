@@ -51,6 +51,7 @@ const fetchStockData = async (ticker) => {
       targetHighPrice: data.financialData?.targetHighPrice,
       targetLowPrice: data.financialData?.targetLowPrice,
       targetMeanPrice: data.financialData?.targetMeanPrice,
+      numberOfAnalystOpinions: data.financialData?.numberOfAnalystOpinions,
       recommendationMean: data.financialData?.recommendationMean,
       revenuePerShare: data.financialData?.revenuePerShare,
       returnOnAssets: data.financialData?.returnOnAssets,
@@ -199,6 +200,6 @@ app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
 
-//fetchStockData('2899.HK')
+fetchStockData('2899.HK')
 // fetchStockHistoryData('2330.TW')
 
