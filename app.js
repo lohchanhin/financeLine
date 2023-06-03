@@ -200,6 +200,6 @@ app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
 
-fetchStockData('2899.HK')
+//fetchStockData('2899.HK')
 // fetchStockHistoryData('2330.TW')
 
