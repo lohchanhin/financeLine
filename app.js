@@ -79,7 +79,7 @@ const fetchStockData = async (ticker) => {
       // 設置日期範圍為過去一個月
       const today = new Date();
       const oneMonthAgo = new Date();
-      oneMonthAgo.setMonth(today.getMonth() - 1);
+      oneMonthAgo.setMonth(today.getMonth() - 2);
   
       // 將日期轉換為 yyyy-mm-dd 格式
       const formatDate = (date) => {
@@ -151,7 +151,7 @@ async function handleEvent(event) {
             }
         ],
         //max_tokens: 2000,
-        temperature: 0.2
+        temperature: 0.1
         });
       
           // 获取助手回复的文本
@@ -200,6 +200,6 @@ app.listen(port, () => {
 console.log(`listening on ${port}`);
 });
 
-//fetchStockData('2899.HK')
+// fetchStockData('2899.HK')
 // fetchStockHistoryData('2330.TW')
 
